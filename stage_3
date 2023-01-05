@@ -1,0 +1,10 @@
+search_nathan = "select * from characters where name in ('Drake', 'Nathan', 'Nathan Drake');"
+how_many_people = "select count(info) from characters where info like '%Nathan Drake%';"
+find_location = "select 
+address, state, city, country 
+from game_developers 
+where name = (select game_developer 
+            from video_games 
+            where id = (select game_id 
+            from games_characters 
+            where character_name = 'Nathan Drake'));"
