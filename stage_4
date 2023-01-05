@@ -1,0 +1,26 @@
+count_games_ca = "select count(distinct video_games.name)
+from game_developers
+         join video_games
+              on game_developers.name = video_games.game_developer
+where state = 'California';"
+address = "select address, state, city, country
+from game_developers
+join video_games
+on game_developers.name = video_games.game_developer
+where
+    release_date not null
+  and address not null
+  and city not null
+  and country not null
+  and
+    state = (select game_developers.state
+from game_developers
+join video_games
+on game_developers.name = video_games.game_developer
+where state not null
+group by state
+order by count(video_games.name) desc
+limit 1)
+order by video_games.release_date desc
+limit 1;
+"
