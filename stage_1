@@ -1,0 +1,45 @@
+video_games_tb = "create table video_games 
+(id INT primary key, 
+name varchar(30), 
+genre varchar(30), 
+game_developer varchar(30), 
+release_date varchar(30));"
+
+game_developers_tb = "create table game_developers 
+(id int primary key,
+ name varchar(30),
+ address varchar(30),
+ state varchar(30),
+ city varchar(30),
+ country varchar(30));"
+
+platforms_tb = "create table platforms 
+(id int primary key,
+ name varchar(30),
+ company_id int,
+ company varchar(30),
+ release_date varchar(30),
+ original_price decimal(10,2),
+ constraint fk_company foreign key (company) references game_developers(name));"
+
+platforms_games_tb = "create table platforms_games 
+(game_id int,
+ platform_id int,
+ platform_name varchar(30),
+ constraint fk_game foreign key (game_id) references video_games(id),
+ constraint fk_platform foreign key (platform_id) references platforms(id),
+ primary key(game_id, platform_id));"
+
+characters_tb = "create table characters 
+(id int primary key,
+ name varchar(30),
+ birthday varchar(30),
+ gender float, info varchar(200));"
+
+games_characters_tb = "create table games_characters 
+(character_id int,
+ character_name varchar(30),
+ game_id int,
+ constraint fk_character foreign key (character_id) references characters(id),
+ constraint fk_game foreign key (game_id) references video_games(id),
+ primary key (character_id, game_id));"
